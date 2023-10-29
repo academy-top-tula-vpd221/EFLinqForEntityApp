@@ -252,6 +252,7 @@ namespace EFLinqForEntityApp
         static public void LinqExecuteMethods(ApplicationContext context)
         {
             context.Employees.ExecuteUpdate(o => o.SetProperty(e => e.Age, e => e.Age + 1));
+            context.Employees.Where(e => e.Age < 20).ExecuteDelete();
         }
     }
 }
