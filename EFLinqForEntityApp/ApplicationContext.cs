@@ -17,6 +17,11 @@ namespace EFLinqForEntityApp
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Country> Countries { get; set; } = null!;
 
+        public ApplicationContext()
+        {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -27,6 +32,8 @@ namespace EFLinqForEntityApp
         {
             // Fluent API
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Employee>().HasQueryFilter(e => e.Company!.Country!.Title == "Russia");
         }
     }
 
